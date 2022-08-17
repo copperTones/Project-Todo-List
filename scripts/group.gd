@@ -39,12 +39,12 @@ func new_item(name, exists=false):
 	item.name = name
 	item = item.get_node("Node2D/item")
 	item.get_node("Label").text = name
+	item.id = name
+	item.entry = Project.groups[id].items
 	
 	var status_btn = item.get_node("status")
 	var tex = status_btn.get_node("Node2D/HBoxContainer").get_child(entry.mode).texture
 	status_btn.texture_normal = tex
-	status_btn.id = name
-	status_btn.entry = Project.groups[id].items
 	
 	item.connect("dropped", self, "item_dropped")
 	return item
