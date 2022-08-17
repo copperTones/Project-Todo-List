@@ -4,13 +4,12 @@ export var atlas_start = Vector2()
 export var atlas_offset = Vector2(12, 0)
 export var mode_count = 5
 
-var hbox
+onready var hbox = $status/Node2D/HBoxContainer
 var click_time
 var id
 var entry
 
 func _ready():
-	hbox = get_node("status/Node2D/HBoxContainer")
 	hbox.visible = false
 	for i in range(mode_count):
 		var trect = TextureRect.new()
@@ -21,15 +20,16 @@ func _ready():
 func _on_status_button_down():
 	hbox.visible = true
 	hbox.rect_position.x = -16*Project.items[id].mode
+	hbox.rect_position.x -= max(hbox.get_global_rect().end.x - OS.window_size.x + 6, 0)
 	click_time = OS.get_unix_time()
 
 func _on_status_button_up():
 	var entry = Project.items[id]
 	hbox.visible = false
-	var off = -1
+	var off = entry.mode - 1
 	if OS.get_unix_time() - click_time > .2:
-		off = (get_local_mouse_position().x + 2)/16
-	entry.mode = clamp(entry.mode+floor(off), 0, mode_count-1)
+		off = (hbox.get_local_mouse_position().x + 2)/16
+	entry.mode = clamp(floor(off), 0, mode_count-1)
 	$status.texture_normal = hbox.get_child(entry.mode).texture
 
 func _on_Label_finish(new_text):
