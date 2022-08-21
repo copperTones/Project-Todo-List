@@ -1,10 +1,12 @@
 extends Control
 
 var id
+var node
 
-func change_desc(new_id):
+func change_desc(new_id, new_node):
 	if new_id in Project.items:
 		id = new_id
+		node = new_node
 		$name.text = id
 		$desc.text = Project.items[id].desc
 	else:
@@ -13,7 +15,8 @@ func change_desc(new_id):
 		$desc.text = ""
 
 func _on_name_text_entered(new_text):
-	pass # name change function
+	if id != null:
+		node.get_node("Label").finish(new_text)
 
 func _on_desc_text_changed():
 	if id != null:

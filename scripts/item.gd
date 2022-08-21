@@ -50,4 +50,4 @@ func _on_Label_finish(new_text):
 
 func _on_item_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
-		emit_signal("change_desc", id)
+		emit_signal("change_desc", id, self)
