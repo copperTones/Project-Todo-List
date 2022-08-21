@@ -4,6 +4,8 @@ export var atlas_start = Vector2()
 export var atlas_offset = Vector2(12, 0)
 export var mode_count = 5
 
+signal change_desc(id)
+
 onready var hbox = $status/Node2D/HBoxContainer
 var click_time
 var id
@@ -45,3 +47,7 @@ func _on_Label_finish(new_text):
 		Project.items[new_text] = ientry
 	else:
 		get_node("Label").text = id
+
+func _on_item_gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		emit_signal("change_desc", id)
