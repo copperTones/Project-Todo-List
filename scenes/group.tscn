@@ -89,5 +89,5 @@ margin_bottom = 104.0
 [connection signal="text_entered" from="Node2D/group/LineEdit" to="Node2D/group/title" method="_on_LineEdit_text_entered"]
 [connection signal="text_changed" from="Node2D/group/search/LineEdit" to="Node2D/group" method="_on_LineEdit_text_changed"]
 [connection signal="text_entered" from="Node2D/group/search/LineEdit" to="Node2D/group" method="_on_LineEdit_text_entered"]
-[connection signal="button_down" from="Node2D/group/search/clear" to="Node2D/group/search" method="_on_clear_button_down"]
-[connection signal="button_down" from="Node2D/group/search/add" to="Node2D/group/search" method="_on_add_button_down"]
+[connection signal="button_down" from="Node2D/group/search/clear" to="Node2D/group" method="_on_clear_button_down"]
+[connection signal="button_down" from="Node2D/group/search/add" to="Node2D/group" method="_on_add_button_down"]

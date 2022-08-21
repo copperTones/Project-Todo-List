@@ -8,8 +8,7 @@ func _ready():
 	for gid in range(Project.groups.size()):
 		var gnode = add_group(gid)
 		for item in Project.groups[gid].items:
-			gnode.new_item(item, true).connect("change_desc", $VSplitContainer/info, "change_desc")
-			Project.items[item].desc = item + " [desc]"
+			gnode.new_item(item, true)
 
 func add_group(id):
 	var group = INST.instance()

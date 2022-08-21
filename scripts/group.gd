@@ -21,13 +21,13 @@ func _on_clear_button_down():
 	clear()
 
 func _on_add_button_down():
-	if new_item($LineEdit.text):
+	if new_item($search/LineEdit.text):
 		clear()
 
 func new_item(name, exists=false):
 	if Project.items.has(name) != exists:
 		return
-	var entry = {"mode": 3}
+	var entry = {"mode": 3, "desc": "Add description"}
 	if exists:
 		entry = Project.items[name]
 	else:
@@ -47,6 +47,7 @@ func new_item(name, exists=false):
 	status_btn.texture_normal = tex
 	
 	item.connect("dropped", self, "item_dropped")
+	item.connect("change_desc", find_parent("default").get_node("VSplitContainer/info"), "change_desc")
 	return item
 
 func clear():
@@ -59,7 +60,7 @@ func item_dropped(node, at):
 	node = node.get_node("../..")
 	var rect = $items.get_global_rect()
 	if rect.position.x + NEWGROUP_MARGIN < at.x and at.x < rect.end.x - NEWGROUP_MARGIN:
-		var index = floor(clamp((at - rect.position).y/24, 0, $items.get_child_count()-1))
+		var index = round(clamp((at - rect.position).y/24, 1, $items.get_child_count())) - 1
 		var list = Project.groups[id].items
 		list.insert(index, list.pop_at(node.get_index()))
 		$items.move_child(node, index)
