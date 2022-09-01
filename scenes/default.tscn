@@ -7,8 +7,6 @@
 [node name="default" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -1.0
-margin_right = -1.0
 script = ExtResource( 2 )
 
 [node name="title" type="Label" parent="."]
