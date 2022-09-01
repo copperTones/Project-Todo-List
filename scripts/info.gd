@@ -3,7 +3,7 @@ extends Control
 var id
 var node
 
-func change_desc(new_id, new_node):
+func change_desc(new_id=null, new_node=null):
 	if new_id in Project.items:
 		id = new_id
 		node = new_node
@@ -23,3 +23,7 @@ func _on_desc_text_changed():
 		Project.items[id].desc = $desc.text
 	else:
 		$desc.text = ""
+
+func _on_delete_button_down():
+	node._on_delete_button_down()
+	change_desc()

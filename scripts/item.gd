@@ -21,6 +21,7 @@ func _ready():
 
 func _on_status_button_down():
 	hbox.visible = true
+	$delete.visible = false
 	hbox.rect_position.x = -16*Project.items[id].mode
 	hbox.rect_position.x -= max(hbox.get_global_rect().end.x - OS.window_size.x + 6, 0)
 	click_time = OS.get_unix_time()
@@ -28,6 +29,7 @@ func _on_status_button_down():
 func _on_status_button_up():
 	var entry = Project.items[id]
 	hbox.visible = false
+	$delete.visible = true
 	var off = entry.mode - 1
 	if OS.get_unix_time() - click_time > .2:
 		off = (hbox.get_local_mouse_position().x + 2)/16
@@ -51,3 +53,9 @@ func _on_Label_finish(new_text):
 func _on_item_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		emit_signal("change_desc", id, self)
+
+func _on_delete_button_down():
+	emit_signal("change_desc")
+	entry.erase(id)
+	Project.items.erase(id)
+	$"../..".queue_free()
